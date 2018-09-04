@@ -1,0 +1,17 @@
+g:\users\clemens\documents\visual studio 2015\Projects\SerienBenennen\SerienBenennen\bin\Debug\SerienBenennen.exe.config
+g:\users\clemens\documents\visual studio 2015\Projects\SerienBenennen\SerienBenennen\bin\Debug\SerienBenennen.exe
+g:\users\clemens\documents\visual studio 2015\Projects\SerienBenennen\SerienBenennen\bin\Debug\SerienBenennen.pdb
+g:\users\clemens\documents\visual studio 2015\Projects\SerienBenennen\SerienBenennen\obj\Debug\MainWindow.g.cs
+g:\users\clemens\documents\visual studio 2015\Projects\SerienBenennen\SerienBenennen\obj\Debug\App.g.cs
+g:\users\clemens\documents\visual studio 2015\Projects\SerienBenennen\SerienBenennen\obj\Debug\SerienBenennen_MarkupCompile.cache
+g:\users\clemens\documents\visual studio 2015\Projects\SerienBenennen\SerienBenennen\obj\Debug\SerienBenennen_MarkupCompile.lref
+g:\users\clemens\documents\visual studio 2015\Projects\SerienBenennen\SerienBenennen\obj\Debug\MainWindow.baml
+g:\users\clemens\documents\visual studio 2015\Projects\SerienBenennen\SerienBenennen\obj\Debug\SerienBenennen.g.resources
+g:\users\clemens\documents\visual studio 2015\Projects\SerienBenennen\SerienBenennen\obj\Debug\SerienBenennen.Properties.Resources.resources
+g:\users\clemens\documents\visual studio 2015\Projects\SerienBenennen\SerienBenennen\obj\Debug\SerienBenennen.csproj.GenerateResource.Cache
+g:\users\clemens\documents\visual studio 2015\Projects\SerienBenennen\SerienBenennen\obj\Debug\SerienBenennen.exe
+g:\users\clemens\documents\visual studio 2015\Projects\SerienBenennen\SerienBenennen\obj\Debug\SerienBenennen.pdb
+g:\users\clemens\documents\visual studio 2015\Projects\SerienBenennen\SerienBenennen\obj\Debug\EpisodenNameWindow.g.cs
+g:\users\clemens\documents\visual studio 2015\Projects\SerienBenennen\SerienBenennen\obj\Debug\EpisodenNameWindow.baml
+G:\Users\Clemens\Documents\Visual Studio 2015\Projects\SerienBenennen\SerienBenennen\bin\Debug\FolderFileLib.dll
+G:\Users\Clemens\Documents\Visual Studio 2015\Projects\SerienBenennen\SerienBenennen\bin\Debug\FolderFileLib.pdb

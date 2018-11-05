@@ -1,10 +1,4 @@
-﻿using FolderFile;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Windows;
 
 namespace SerienBenennen
@@ -16,11 +10,9 @@ namespace SerienBenennen
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var list = e.Args.ToArray();
-
             try
             {
-                if (list.Length > 0) ViewModel.Current.Folder = new Folder(list[0], SubfolderType.This);
+                if (e.Args.Length > 0) ViewModel.Current.Directory = new DirectoryInfo(e.Args[0]);
             }
             catch { }
         }

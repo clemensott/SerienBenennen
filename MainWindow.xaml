@@ -19,8 +19,8 @@
 
         <StackPanel Grid.Row="0">
             <TextBlock Text="Folder:" Margin="5,5,0,0"/>
-            <ff:FolderPicker TwoLines="False" WithCheckbox="False"
-                          Folder="{Binding Folder, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <ff:DirectoryPicker SingleLine="True" SubdirectoryType="This"
+                                Files="{Binding Files,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
         <Grid Grid.Row="1">
@@ -30,7 +30,7 @@
             </Grid.ColumnDefinitions>
             
             <TextBlock Grid.Column="0" Text="Name:" Margin="5"/>
-            <TextBox Grid.Column="1" Text="{Binding SeriesName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
+            <TextBox Grid.Column="1" Text="{Binding SeriesName,Mode=OneWayToSource}" Margin="5"/>
         </Grid>
         
         <ListBox Grid.Row="2" Name="lbxEpisodesNames" ItemsSource="{Binding EpisodesNames}" SelectionMode="Extended">

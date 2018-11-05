@@ -1,15 +1,9 @@
-﻿using FolderFile;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace SerienBenennen
 {
@@ -28,7 +22,8 @@ namespace SerienBenennen
         }
 
         private string maxSeasonNumberText, maxEpisodeNumberText, seriesName;
-        private Folder folder;
+        private IEnumerable<FileInfo> files;
+        private DirectoryInfo directory;
         private ObservableCollection<EpisodeName> episodesNames;
 
         public int MaxSeasonNumber
@@ -65,7 +60,7 @@ namespace SerienBenennen
                 if (maxSeasonNumberText == value) return;
                 if (int.TryParse(value, out maxSeasonNumber)) maxSeasonNumberText = value;
 
-                OnPropertyChanged("MaxSeasonNumberText");
+                OnPropertyChanged(nameof(MaxSeasonNumberText));
             }
         }
 
@@ -79,7 +74,7 @@ namespace SerienBenennen
                 if (maxEpisodeNumberText == value) return;
                 if (int.TryParse(value, out maxEpisodeNumber)) maxEpisodeNumberText = value;
 
-                OnPropertyChanged("MaxEpisodeNumberText");
+                OnPropertyChanged(nameof(MaxEpisodeNumberText));
             }
         }
 
@@ -91,22 +86,32 @@ namespace SerienBenennen
                 if (seriesName == value) return;
 
                 seriesName = value;
-                OnPropertyChanged("SeriesName");
+                OnPropertyChanged(nameof(SeriesName));
             }
         }
 
-        public Folder Folder
+        public DirectoryInfo Directory
         {
-            get { return folder; }
+            get { return directory; }
             set
             {
-                if (folder == value) return;
+                if (value == directory) return;
 
-                folder = value;
+                directory = value;
+                OnPropertyChanged(nameof(Directory));
+            }
+        }
+
+        public IEnumerable<FileInfo> Files
+        {
+            get { return files; }
+            set
+            {
+                if (files == value) return;
+
+                files = value;
                 UpdateEpisodenNamesFromStorage();
-                OnPropertyChanged("SeasonOrdner");
-
-                SeriesName = folder.Info.Name;
+                OnPropertyChanged(nameof(Files));
             }
         }
 
@@ -119,7 +124,7 @@ namespace SerienBenennen
 
                 episodesNames = value;
                 episodesNames.CollectionChanged += EpisodenNames_CollectionChanged;
-                OnPropertyChanged("EpisodesNames");
+                OnPropertyChanged(nameof(EpisodesNames));
             }
         }
 
@@ -132,12 +137,12 @@ namespace SerienBenennen
 
         private void EpisodenNames_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            OnPropertyChanged("EpisodesNames");
+            OnPropertyChanged(nameof(EpisodesNames));
         }
 
         public void UpdateEpisodenNamesFromStorage()
         {
-            FileInfo[] files = folder.GetFiles();
+            FileInfo[] files = Files.ToArray();
             List<EpisodeName> oldNames = episodesNames.ToList();
             ObservableCollection<EpisodeName> names = new ObservableCollection<EpisodeName>();
 
@@ -158,7 +163,7 @@ namespace SerienBenennen
             }
 
             EpisodesNames = names;
-            MaxEpisodeNumberText = names.Max(x => x.EpisodeNumber).ToString();
+            MaxEpisodeNumberText = names.Any() ? names.Max(x => x.EpisodeNumber).ToString() : "0";
         }
 
         private int GetInsertIndexWhenOrderedBySeasonAndEpisode(EpisodeName episodeName,

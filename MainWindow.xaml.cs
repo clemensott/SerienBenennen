@@ -93,7 +93,8 @@ namespace SerienBenennen
                 eName.Save();
             }
 
-            ViewModel.Current.UpdateEpisodenNamesFromStorage();
+            ViewModel.Current.Folder.Refresh();
+            //ViewModel.Current.UpdateEpisodenNamesFromStorage();
         }
     }
 }

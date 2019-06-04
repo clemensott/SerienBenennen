@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SerienBenennen"
         xmlns:ff="clr-namespace:FolderFile;assembly=FolderFileLib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" MinWidth="715" Width="715"
+        Title="Serien bennenen" Height="350" MinWidth="715" Width="715"
         AllowDrop="True" DragDrop.Drop="Window_Drop">
 
     <Grid>
@@ -19,8 +19,8 @@
 
         <StackPanel Grid.Row="0">
             <TextBlock Text="Folder:" Margin="5,5,0,0"/>
-            <ff:DirectoryPicker SingleLine="True" SubdirectoryType="This"
-                                Files="{Binding Files,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <ff:FolderPicker Margin="5" SingleLine="True" SubTypeSelection="Hidden"
+                             AutoRefreshSelection="True"  Folder="{Binding Folder,Mode=TwoWay}"/>
         </StackPanel>
 
         <Grid Grid.Row="1">

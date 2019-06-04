@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FolderFile;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -22,8 +23,7 @@ namespace SerienBenennen
         }
 
         private string maxSeasonNumberText, maxEpisodeNumberText, seriesName;
-        private IEnumerable<FileInfo> files;
-        private DirectoryInfo directory;
+        private Folder folder;
         private ObservableCollection<EpisodeName> episodesNames;
 
         public int MaxSeasonNumber
@@ -90,28 +90,20 @@ namespace SerienBenennen
             }
         }
 
-        public DirectoryInfo Directory
+        public Folder Folder
         {
-            get { return directory; }
+            get { return folder; }
             set
             {
-                if (value == directory) return;
+                if (value == folder) return;
 
-                directory = value;
-                OnPropertyChanged(nameof(Directory));
-            }
-        }
+                if (folder != null) folder.PropertyChanged -= Folder_PropertyChanged;
+                folder = value;
+                if (folder != null) folder.PropertyChanged += Folder_PropertyChanged;
 
-        public IEnumerable<FileInfo> Files
-        {
-            get { return files; }
-            set
-            {
-                if (files == value) return;
+                OnPropertyChanged(nameof(Folder));
 
-                files = value;
                 UpdateEpisodenNamesFromStorage();
-                OnPropertyChanged(nameof(Files));
             }
         }
 
@@ -122,8 +114,10 @@ namespace SerienBenennen
             {
                 if (episodesNames == value) return;
 
+                if (episodesNames != null) episodesNames.CollectionChanged -= EpisodenNames_CollectionChanged;
                 episodesNames = value;
-                episodesNames.CollectionChanged += EpisodenNames_CollectionChanged;
+                if (episodesNames != null) episodesNames.CollectionChanged += EpisodenNames_CollectionChanged;
+
                 OnPropertyChanged(nameof(EpisodesNames));
             }
         }
@@ -140,9 +134,14 @@ namespace SerienBenennen
             OnPropertyChanged(nameof(EpisodesNames));
         }
 
+        private void Folder_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            UpdateEpisodenNamesFromStorage();
+        }
+
         public void UpdateEpisodenNamesFromStorage()
         {
-            FileInfo[] files = Files.ToArray();
+            FileInfo[] files = Folder.Files;
             List<EpisodeName> oldNames = episodesNames.ToList();
             ObservableCollection<EpisodeName> names = new ObservableCollection<EpisodeName>();
 
@@ -181,9 +180,7 @@ namespace SerienBenennen
 
         private void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged == null) return;
-
-            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

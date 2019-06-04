@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿using FolderFile;
 using System.Windows;
 
 namespace SerienBenennen
@@ -12,7 +12,7 @@ namespace SerienBenennen
         {
             try
             {
-                if (e.Args.Length > 0) ViewModel.Current.Directory = new DirectoryInfo(e.Args[0]);
+                if (e.Args.Length > 0) ViewModel.Current.Folder = new Folder(e.Args[0], SubfolderType.This, true);
             }
             catch { }
         }

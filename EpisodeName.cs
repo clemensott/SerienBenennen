@@ -1,11 +1,6 @@
-﻿using FolderFileLib;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SerienBenennen
 {
@@ -23,7 +18,7 @@ namespace SerienBenennen
 
         public string FullPath { get { return File.FullName; } }
 
-        public string FileNameWithoutExtension { get { return File.GetNameWithoutExtension(); } }
+        public string FileNameWithoutExtension { get { return File.Name.Remove(File.Name.Length - File.Extension.Length); } }
 
         public string DirectoryName { get { return File.DirectoryName; } }
 
@@ -63,8 +58,15 @@ namespace SerienBenennen
                 }
             }
 
-            string finalPath = string.Format("{0}\\{1} S{2}E{3} - {4}{5}", DirectoryName,
+            string finalFileName = string.Format("{0} S{1}E{2} - {3}{4}",
                 ViewModel.Current.SeriesName, SeasonNumber, GetEpisodenNumberWithZeros(), Name, Extension);
+
+            foreach (char invalidChar in Path.GetInvalidFileNameChars())
+            {
+                finalFileName = finalFileName.Replace(invalidChar.ToString(), "");
+            }
+
+            string finalPath = Path.Combine(DirectoryName, finalFileName);
 
             try
             {
